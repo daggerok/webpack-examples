@@ -51,7 +51,7 @@ include::../../modules/starter/config/webpack.dev.js[tags=content]
 === add HTML plugin
 
 .install html-webpack-plugin
-[source,javascript]
+[source,bash]
 ----
 npm i -DE html-webpack-plugin
 ----
@@ -71,7 +71,7 @@ include::../../modules/add-webpack-dev-server/config/webpack.dev.js[tags=content
 ----
 
 .install and run webpack-dev-server
-[source,javascript]
+[source,bash]
 ----
 npm i -DE webpack-dev-server
 webpack-dev-server --config config/webpack.dev.js
@@ -88,7 +88,7 @@ include::../../modules/add-css-and-styles-loaders/src/styles.css[]
 NOTE: These loaders will apply in reverse order: first, `css-loader`, next: `style-loader`
 
 .install css-loader and style-loader
-[source,javascript]
+[source,bash]
 ----
 npm i -DE css-loader style-loader
 ----
@@ -113,7 +113,7 @@ NOTE: Few thinks are happening here:
       And finally `file-loader` will put extracted content in output dir accordingly
 
 .remove useless plugin and install requires loaders: `html-loader`, `extract-loader` and `file-loader`
-[source,javascript]
+[source,bash]
 ----
 npm rm -DE html-webpack-plugin
 npm i -DE html-loader extract-loader file-loader
@@ -129,6 +129,26 @@ include::../../modules/using-extract-and-file-loaders/config/webpack.dev.js[tags
 [source,javascript]
 ----
 include::../../modules/using-extract-and-file-loaders/src/index.js[tags=content]
+----
+
+NOTE: I wont use that approach,
+      I prefer `HtmlWebpackPlugin` and `ExtractTextWebpackPlugin`
+
+=== using extract-text-webpack-plugin
+
+.install
+[source,bash]
+----
+npm rm -ED style-loader
+npm i -DE extract-text-webpack-plugin@next css-loader
+# also add less support
+npm i -DE less-loader less
+----
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/using-extract-text-webpack-plugin/config/webpack.dev.js[tags=content]
 ----
 
 == Links
@@ -148,3 +168,5 @@ link:https://webpack.js.org/plugins/html-webpack-plugin/[HTML webpack plugin doc
 link:https://webpack.js.org/configuration/dev-server/#src/components/Sidebar/Sidebar.jsx[HTML webpack-dev-server documentation]
 
 link:https://github.com/peerigon/extract-loader[extract-loader]
+
+link:https://webpack.js.org/plugins/extract-text-webpack-plugin/#src/components/Sidebar/Sidebar.jsx[extract-text-webpack-plugin]

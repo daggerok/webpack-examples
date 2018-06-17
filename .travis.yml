@@ -26,6 +26,7 @@ script:
 - export root=$(pwd)
 - |
   for project in \
+    using-extract-text-webpack-plugin \
     using-extract-and-file-loaders \
     add-css-and-styles-loaders \
     add-webpack-dev-server \

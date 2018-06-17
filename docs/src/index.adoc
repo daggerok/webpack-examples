@@ -20,6 +20,8 @@ include::../../README.adoc[tags=content]
 
 == Quickstart
 
+=== no config
+
 .using webpack without `webpack.config.js` file
 [source,bash]
 ----
@@ -36,6 +38,14 @@ npm i -g webpack webpack-cli
 
 webpack --mode=development
 webpack --mode=production
+----
+
+=== basic config
+
+.using webpack with basic config file: `config/webpack.dev.js`
+[source,javascript]
+----
+include::../../starter/config/webpack.dev.js[tags=content]
 ----
 
 == Links

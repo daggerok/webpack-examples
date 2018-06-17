@@ -1,5 +1,5 @@
-// tag::content[]
 require('./styles.css');
-// end::content[]
 
-console.log('hey!');
+document.getElementById('app').innerHTML = `
+  <h1>Hey! Оно светится!</h1>
+`;

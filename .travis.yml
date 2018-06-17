@@ -26,6 +26,7 @@ script:
 - export root=$(pwd)
 - |
   for project in \
+    starter \
     starter-no-config \
   ; do
     cd ${root}/${project}

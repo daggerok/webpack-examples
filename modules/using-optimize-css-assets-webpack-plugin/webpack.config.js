@@ -3,6 +3,7 @@ const dist = resolve(__dirname, 'dist');
 const mode = process.env.NODE_ENV || 'production';
 const isProduction = mode === 'production';
 
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // tag::content[]
@@ -121,6 +122,11 @@ module.exports = {
         collapseWhitespace: true
       } : {},
     }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(mode),
+      },
+    })
     // tag::content[]
   ].filter(p => !!p),
 };

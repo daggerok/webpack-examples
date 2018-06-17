@@ -27,6 +27,7 @@ script:
 - export project=add-css-and-styles-loaders
 - export project=using-extract-and-file-loaders
 - export project=using-extract-text-webpack-plugin
+- export project=using-mini-css-extract-plugin
 - cd ${root}/modules/${project}
 
 - npm i

@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-17 04:51:15 UTC</span>
+<span id="revdate">2018-06-17 12:57:53 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -550,6 +550,7 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#no-config">2.1. no config</a></li>
 <li><a href="#basic-config">2.2. basic config</a></li>
+<li><a href="#add-html-plugin">2.3. add HTML plugin</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -577,10 +578,13 @@ table.CodeRay td.code>pre{padding:0}
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/daggerok/webpack-examples/tree/master/starter-no-config">starter without config file</a></p>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/starter-no-config">starter without config file</a></p>
 </li>
 <li>
-<p><a href="https://github.com/daggerok/webpack-examples/tree/master/starter">basic starter</a></p>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/starter">basic starter</a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/add-html">add html-webpack-plugin</a></p>
 </li>
 </ul>
 </div>
@@ -630,22 +634,50 @@ module.exports = {
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="add-html-plugin"><a class="anchor" href="#add-html-plugin"></a>2.3. add HTML plugin</h3>
+<div class="listingblock">
+<div class="title">install</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">npm i -DE html-webpack-plugin</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const HtmlWebpackPlugin = require(<span class="string"><span class="delimiter">'</span><span class="content">html-webpack-plugin</span><span class="delimiter">'</span></span>);
+
+module.exports = {
+  <span class="comment">// ...</span>
+  <span class="key">plugins</span>: [
+    <span class="keyword">new</span> HtmlWebpackPlugin({
+      <span class="key">template</span>: <span class="string"><span class="delimiter">'</span><span class="content">./src/index.html</span><span class="delimiter">'</span></span>,
+      <span class="key">favicon</span>: <span class="string"><span class="delimiter">'</span><span class="content">./src/favicon.ico</span><span class="delimiter">'</span></span>,
+    }),
+  ],
+};</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="links"><a class="anchor" href="#links"></a>3. Links</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/lawwantsin/webpack-course">GitHub repo: lawwantsin/webpack-course</a></p>
+<p><a href="./index.pdf">Documentation in PFD format</a></p>
 </div>
 <div class="paragraph">
-<p><a href="./index.pdf">Documentation in PFD format</a></p>
+<p><a href="https://asciidoctor.org/docs/user-manual/#source-code-blocks">Asciidoctor reference</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/lawwantsin/webpack-course">GitHub repo: lawwantsin/webpack-course</a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/daggerok/webpack-examples">GitHub</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://asciidoctor.org/docs/user-manual/#source-code-blocks">asciidoctor reference&#8230;&#8203;</a></p>
+<p><a href="https://webpack.js.org/plugins/html-webpack-plugin/">HTML webpack plugin</a></p>
 </div>
 </div>
 </div>
@@ -653,7 +685,7 @@ module.exports = {
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-17 04:51:15 UTC
+Last updated 2018-06-17 12:57:53 UTC
 </div>
 </div>
 </body>

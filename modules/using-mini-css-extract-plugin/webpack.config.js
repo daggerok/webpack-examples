@@ -34,6 +34,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
+              minimize: isProduction,
             },
           },
           // 'postcss-loader',
@@ -54,6 +55,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
+              minimize: isProduction,
             },
           },
           {
@@ -73,6 +75,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
+              minimize: isProduction,
             },
           },
           {
@@ -92,6 +95,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
+              minimize: isProduction,
             },
           },
           'postcss-loader',

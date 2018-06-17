@@ -26,10 +26,11 @@ script:
 - export root=$(pwd)
 - |
   for project in \
+    add-html \
     starter \
     starter-no-config \
   ; do
-    cd ${root}/${project}
+    cd ${root}/modules/${project}
     npm i
     npm run build
   done;

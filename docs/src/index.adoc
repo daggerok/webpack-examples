@@ -45,15 +45,31 @@ webpack --mode=production
 .using webpack with basic config file: `config/webpack.dev.js`
 [source,javascript]
 ----
-include::../../starter/config/webpack.dev.js[tags=content]
+include::../../modules/starter/config/webpack.dev.js[tags=content]
+----
+
+=== add HTML plugin
+
+.install
+[source,javascript]
+----
+npm i -DE html-webpack-plugin
+----
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/add-html/config/webpack.dev.js[tags=content]
 ----
 
 == Links
 
-link:https://github.com/lawwantsin/webpack-course[GitHub repo: lawwantsin/webpack-course]
-
 ifdef::backend-html5[link:./index.pdf[Documentation in PFD format]]
+
+link:https://asciidoctor.org/docs/user-manual/#source-code-blocks[Asciidoctor reference]
+
+link:https://github.com/lawwantsin/webpack-course[GitHub repo: lawwantsin/webpack-course]
 
 link:https://github.com/daggerok/{root-project-name}[GitHub]
 
-link:https://asciidoctor.org/docs/user-manual/#source-code-blocks[asciidoctor reference...]
+link:https://webpack.js.org/plugins/html-webpack-plugin/[HTML webpack plugin]

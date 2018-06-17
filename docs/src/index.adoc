@@ -62,6 +62,21 @@ npm i -DE html-webpack-plugin
 include::../../modules/add-html/config/webpack.dev.js[tags=content]
 ----
 
+=== add webpack-dev-server
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/add-webpack-dev-server/config/webpack.dev.js[tags=content]
+----
+
+.install and run webpack-dev-server
+[source,javascript]
+----
+npm i -DE webpack-dev-server
+webpack-dev-server --config config/webpack.dev.js
+----
+
 == Links
 
 ifdef::backend-html5[link:./index.pdf[Documentation in PFD format]]
@@ -72,4 +87,8 @@ link:https://github.com/lawwantsin/webpack-course[GitHub repo: lawwantsin/webpac
 
 link:https://github.com/daggerok/{root-project-name}[GitHub]
 
-link:https://webpack.js.org/plugins/html-webpack-plugin/[HTML webpack plugin]
+link:[Webpack documentation]
+
+link:https://webpack.js.org/plugins/html-webpack-plugin/[HTML webpack plugin documentation]
+
+link:https://webpack.js.org/configuration/dev-server/#src/components/Sidebar/Sidebar.jsx[HTML webpack-dev-server documentation]

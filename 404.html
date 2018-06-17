@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-17 18:28:26 UTC</span>
+<span id="revdate">2018-06-17 18:34:31 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -912,8 +912,8 @@ npm i -DE less-loader less</code></pre>
 <div class="title">update webpack condig</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="javascript">const ExtractTextPlugin = require(<span class="string"><span class="delimiter">'</span><span class="content">extract-text-webpack-plugin</span><span class="delimiter">'</span></span>);
-const cssContent = <span class="keyword">new</span> ExtractTextPlugin(<span class="string"><span class="delimiter">'</span><span class="content">[name].css</span><span class="delimiter">'</span></span>);
-const lessContent = <span class="keyword">new</span> ExtractTextPlugin(<span class="string"><span class="delimiter">'</span><span class="content">[name].less.css</span><span class="delimiter">'</span></span>);
+const cssContent = <span class="keyword">new</span> ExtractTextPlugin(<span class="string"><span class="delimiter">'</span><span class="content">[name]-[hash:8].css</span><span class="delimiter">'</span></span>);
+const lessContent = <span class="keyword">new</span> ExtractTextPlugin(<span class="string"><span class="delimiter">'</span><span class="content">[name].less-[hash:8].css</span><span class="delimiter">'</span></span>);
 
 module.exports = {
   <span class="comment">// ...</span>
@@ -984,7 +984,7 @@ module.exports = {
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-17 18:28:26 UTC
+Last updated 2018-06-17 18:34:31 UTC
 </div>
 </div>
 </body>

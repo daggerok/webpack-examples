@@ -85,6 +85,8 @@ webpack-dev-server --config config/webpack.dev.js
 include::../../modules/add-css-and-styles-loaders/src/styles.css[]
 ----
 
+NOTE: These loaders will apply in reverse order: first, `css-loader`, next: `style-loader`
+
 .install css-loader and style-loader
 [source,javascript]
 ----

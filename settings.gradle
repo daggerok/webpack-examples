@@ -1,0 +1,3 @@
+rootProject.name = 'webpack-examples'
+enableFeaturePreview 'STABLE_PUBLISHING'
+include ':docs'

@@ -1,0 +1,9 @@
+= webpack-examples image:https://travis-ci.org/daggerok/webpack-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/webpack-examples"]
+
+//tag::content[]
+Read link:https://daggerok.github.io/webpack-examples[reference documentation]
+
+webpack 4 examples:
+
+- link:https://github.com/daggerok/webpack-examples/tree/master/starter[starter]
+//end::content[]

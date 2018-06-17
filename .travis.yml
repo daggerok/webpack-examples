@@ -1,0 +1,62 @@
+#service:
+#- docker
+
+apt:
+  update: true
+  packages:
+  - wget
+  - libappindicator1
+  - fonts-liberation
+  - python-pip
+#  - docker-ce
+
+install: true
+before_script:
+- export CHROME_BIN=/usr/bin/google-chrome
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- sudo dpkg -i google-chrome*.deb >/dev/null 2>&1
+- sudo pip install httpie >/dev/null 2>&1
+
+language: node_js
+node_js: lts/*
+
+script:
+- export root=$(pwd)
+- |
+  for project in \
+  \ do
+    cd $root/$project
+    npm i
+  done;
+
+#- cd $root
+#- cp -Rf ./.dockerignore.frontend ./.dockerignore
+#- docker build --rm --force-rm --no-cache -f Dockerfile.frontend -t daggerok/webpack-examples:frontend .
+#- docker run -d --rm -p 80:80 -e "PORT=80" --name run-webpack-examples-frontend daggerok/webpack-examples:frontend
+#- sleep 1
+#- http http://127.0.0.1/
+#- docker stop run-webpack-examples-frontend
+
+env:
+  global:
+  - TERM=dumb
+  # GITHUB_TOKEN:
+
+language: java
+java: oraclejdk8
+
+before_deploy:
+- cd $root
+- ./gradlew documentation
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: "$GITHUB_TOKEN"
+  keep-history: true
+  on:
+    branch: master
+  local-dir: public
+  target_branch: gh-pages

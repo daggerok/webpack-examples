@@ -1,0 +1,15 @@
+{
+  "name": "webpack-examples",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "echo start",
+    "build": "echo build"
+  },
+  "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {
+    "cross-env": "5.2.0",
+    "rimraf": "2.6.2"
+  }
+}

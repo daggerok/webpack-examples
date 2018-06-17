@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-17 22:50:10 UTC</span>
+<span id="revdate">2018-06-17 23:27:38 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -556,6 +556,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#process-html-and-using-html-file-loaders">2.6. process html and using html / file loaders</a></li>
 <li><a href="#using-extract-text-webpack-plugin">2.7. using extract-text-webpack-plugin</a></li>
 <li><a href="#using-mini-css-extract-plugin">2.8. using mini-css-extract-plugin</a></li>
+<li><a href="#using-optimize-css-assets-webpack-plugin">2.9. using optimize-css-assets-webpack-plugin</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -605,6 +606,9 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li>
 <p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/using-mini-css-extract-plugin">production build: minify everything, extract css&#8230;&#8203;</a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/using-optimize-css-assets-webpack-plugin">using <code>optimize-css-assets-webpack-plugin</code></a></p>
 </li>
 </ul>
 </div>
@@ -1026,6 +1030,40 @@ module.exports = {
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="using-optimize-css-assets-webpack-plugin"><a class="anchor" href="#using-optimize-css-assets-webpack-plugin"></a>2.9. using optimize-css-assets-webpack-plugin</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+THis plugin solves extract-text-webpack-plugin CSS duplication problem
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">install</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">npm i -DE optimize-css-assets-webpack-plugin</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const OptimizeCssPlugin = require(<span class="string"><span class="delimiter">'</span><span class="content">optimize-css-assets-webpack-plugin</span><span class="delimiter">'</span></span>);
+
+module.exports = {
+  <span class="comment">// ...</span>
+  <span class="key">plugins</span>: [
+    isProduction ? <span class="keyword">new</span> OptimizeCssPlugin() : <span class="predefined-constant">undefined</span>,
+  ].filter(p =&gt; !!p),
+};</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1060,6 +1098,9 @@ module.exports = {
 <li>
 <p><a href="https://webpack.js.org/plugins/extract-text-webpack-plugin/#src/components/Sidebar/Sidebar.jsx">extract-text-webpack-plugin</a></p>
 </li>
+<li>
+<p><a href="https://github.com/NMFR/optimize-css-assets-webpack-plugin">optimize-css-assets-webpack-plugin</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -1068,7 +1109,7 @@ module.exports = {
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-17 22:50:10 UTC
+Last updated 2018-06-17 23:27:38 UTC
 </div>
 </div>
 </body>

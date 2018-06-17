@@ -151,6 +151,36 @@ npm i -DE less-loader less
 include::../../modules/using-extract-text-webpack-plugin/config/webpack.dev.js[tags=content]
 ----
 
+TIP: There are better option available for using instead of extract text plugin:
+     `mini-css-extract-plugin`
+
+=== using mini-css-extract-plugin
+
+.install
+[source,bash]
+----
+npm rm extract-text-webpack-plugin
+npm i -DE mini-css-extract-plugin
+----
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/using-mini-css-extract-plugin/webpack.config.js[tags=content]
+----
+
+.update package.json
+[source,json]
+----
+{
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack",
+    "build": "cross-env NODE_ENV=production webpack",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --open"
+  }
+}
+----
+
 == Links
 
 ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]

@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-17 16:11:04 UTC</span>
+<span id="revdate">2018-06-17 17:24:15 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -554,6 +554,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#add-webpack-dev-server">2.4. add webpack-dev-server</a></li>
 <li><a href="#add-css-loader-and-style-loader">2.5. add css-loader and style-loader</a></li>
 <li><a href="#process-html-and-using-html-file-loaders">2.6. process html and using html / file loaders</a></li>
+<li><a href="#using-extract-text-webpack-plugin">2.7. using extract-text-webpack-plugin</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -651,7 +652,7 @@ module.exports = {
 <div class="listingblock">
 <div class="title">install html-webpack-plugin</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="javascript">npm i -DE html-webpack-plugin</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">npm i -DE html-webpack-plugin</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -691,7 +692,7 @@ module.exports = {
 <div class="listingblock">
 <div class="title">install and run webpack-dev-server</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="javascript">npm i -DE webpack-dev-server
+<pre class="CodeRay highlight"><code data-lang="bash">npm i -DE webpack-dev-server
 webpack-dev-server --config config/webpack.dev.js</code></pre>
 </div>
 </div>
@@ -738,7 +739,7 @@ These loaders will apply in reverse order: first, <code>css-loader</code>, next:
 <div class="listingblock">
 <div class="title">install css-loader and style-loader</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="javascript">npm i -DE css-loader style-loader</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">npm i -DE css-loader style-loader</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -800,7 +801,7 @@ Few thinks are happening here:
 <div class="listingblock">
 <div class="title">remove useless plugin and install requires loaders: <code>html-loader</code>, <code>extract-loader</code> and <code>file-loader</code></div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="javascript">npm rm -DE html-webpack-plugin
+<pre class="CodeRay highlight"><code data-lang="bash">npm rm -DE html-webpack-plugin
 npm i -DE html-loader extract-loader file-loader</code></pre>
 </div>
 </div>
@@ -882,6 +883,63 @@ require(<span class="string"><span class="delimiter">'</span><span class="conten
 require(<span class="string"><span class="delimiter">'</span><span class="content">./favicon.ico</span><span class="delimiter">'</span></span>);</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+I wont use that approach,
+      I prefer <code>HtmlWebpackPlugin</code> and <code>ExtractTextWebpackPlugin</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-extract-text-webpack-plugin"><a class="anchor" href="#using-extract-text-webpack-plugin"></a>2.7. using extract-text-webpack-plugin</h3>
+<div class="listingblock">
+<div class="title">install</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">npm rm -ED style-loader
+npm i -DE extract-text-webpack-plugin@next css-loader
+# also add less support
+npm i -DE less-loader less</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const ExtractTextPlugin = require(<span class="string"><span class="delimiter">'</span><span class="content">extract-text-webpack-plugin</span><span class="delimiter">'</span></span>);
+const cssContent = <span class="keyword">new</span> ExtractTextPlugin(<span class="string"><span class="delimiter">'</span><span class="content">[name].css</span><span class="delimiter">'</span></span>);
+const lessContent = <span class="keyword">new</span> ExtractTextPlugin(<span class="string"><span class="delimiter">'</span><span class="content">[name].less.css</span><span class="delimiter">'</span></span>);
+
+module.exports = {
+  <span class="comment">// ...</span>
+  <span class="key">module</span>: {
+    <span class="key">rules</span>: [
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">css$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: cssContent.extract([
+          <span class="string"><span class="delimiter">'</span><span class="content">css-loader</span><span class="delimiter">'</span></span>,
+        ]),
+      },
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">less$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: cssContent.extract([
+          <span class="string"><span class="delimiter">'</span><span class="content">css-loader</span><span class="delimiter">'</span></span>,
+          <span class="string"><span class="delimiter">'</span><span class="content">less-loader</span><span class="delimiter">'</span></span>,
+        ]),
+      },
+    ],
+  },
+  <span class="key">plugins</span>: [
+    cssContent,
+    lessContent,
+    <span class="comment">// ...</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -912,13 +970,16 @@ require(<span class="string"><span class="delimiter">'</span><span class="conten
 <div class="paragraph">
 <p><a href="https://github.com/peerigon/extract-loader">extract-loader</a></p>
 </div>
+<div class="paragraph">
+<p><a href="https://webpack.js.org/plugins/extract-text-webpack-plugin/#src/components/Sidebar/Sidebar.jsx">extract-text-webpack-plugin</a></p>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-17 16:11:04 UTC
+Last updated 2018-06-17 17:24:15 UTC
 </div>
 </div>
 </body>

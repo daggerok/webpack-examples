@@ -27,8 +27,8 @@ script:
 - |
   for project in \
     starter-no-config \
-  \ do
-    cd $root/$project
+  ; do
+    cd ${root}/${project}
     npm i
     npm run build
   done;

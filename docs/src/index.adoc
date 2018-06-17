@@ -18,9 +18,25 @@ ifdef::backend-html5[image:https://travis-ci.org/daggerok/{root-project-name}.sv
 
 include::../../README.adoc[tags=content]
 
-== Implementation
+== Quickstart
 
-TODO: implement me..
+.using webpack without `webpack.config.js` file
+[source,bash]
+----
+mkdir starter-no-config
+cd starter-no-config/
+
+mkdir src dist
+echo "console.log('hey!');" >> src/index.js
+echo "<script src='./main.js'></script>" >> dist/index.html
+
+npm init -y
+npm i -g webpack webpack-cli
+#npm i -DE webpack webpack-cli
+
+webpack --mode=development
+webpack --mode=production
+----
 
 == Links
 

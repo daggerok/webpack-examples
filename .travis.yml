@@ -26,9 +26,11 @@ script:
 - export root=$(pwd)
 - |
   for project in \
+    starter-no-config \
   \ do
     cd $root/$project
     npm i
+    npm run build
   done;
 
 #- cd $root
@@ -43,6 +45,7 @@ env:
   global:
   - TERM=dumb
   # GITHUB_TOKEN:
+  - secure: o41fuJ/HMTnCLvhHixG6vN6rMXvXxTiLdLiBq6x7HkAcwIoKjSFkPg5fPZiWUevDgv1caFTI7n2u4MSPbeaCT5T5uYHG1OF20T9gmsPEh2o3Y6ekIyIGkcc+BfkKV4Iz2NBrwhxsJxNbvdmokDClwrPRJZAGBDJjiY5NZkMQRa7Hk9uS8Dp34lDc1zijcBUjKfI1qb3vnpICYEhDvWz9N2cJ/jqYobrmqIsSXVZE2bfeSIZhp9DBYv/AKDiKEnO7D7HLQ26aWxLhBz2NxmyCrfCwyngxeEX4ZnQvTmDUQrC6R0oTd4kFvR7rKmrbUkk7tdBIsb7u65QqwR42yVb1dZZ++u/bju1WQiz8/Z4L61/+gPB5Uu8yA3wbcZt/L9mmXaFOrS8yvqnXCDGjhnvbKGdEyGzOIbICVuvlMIbmss2WnAGQgKd4ckyx6wfzXrmB8JXu9jLV3pbuwb03LIoJJO//88pEoI5PJvhHjiVvsBnqcVxsYpd2yMY1WiUsPkwFQkjmdPfdZYJY+vT+3T6fLlZQvzCXqvXPbkpWBsf2SakNcmpCsErbbKfGq+mmITib2x9MgepzpdUiDgFIHBzo1qj1GL054jGjvOnsCLIwBzQn2A/yN5YT13WkiUeIn+x4Wy15zWEeDkvrWBkgBEsSxXoOrY9u7m84aCZwZCIUcvk=
 
 language: java
 java: oraclejdk8

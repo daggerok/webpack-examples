@@ -9,4 +9,5 @@ webpack 4 examples:
 - link:https://github.com/daggerok/webpack-examples/tree/master/modules/starter[basic starter]
 - link:https://github.com/daggerok/webpack-examples/tree/master/modules/add-html[add html-webpack-plugin]
 - link:https://github.com/daggerok/webpack-examples/tree/master/modules/add-dev-server[add webpack-dev-server]
+- link:https://github.com/daggerok/webpack-examples/tree/master/modules/add-css-and-styles-loaders[add css-loader and style-loader]
 //end::content[]

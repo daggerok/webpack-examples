@@ -1,6 +1,3 @@
-#service:
-#- docker
-
 apt:
   update: true
   packages:
@@ -8,7 +5,6 @@ apt:
   - libappindicator1
   - fonts-liberation
   - python-pip
-#  - docker-ce
 
 install: true
 before_script:
@@ -24,28 +20,17 @@ node_js: lts/*
 
 script:
 - export root=$(pwd)
-- |
-  for project in \
-    using-extract-text-webpack-plugin \
-    using-extract-and-file-loaders \
-    add-css-and-styles-loaders \
-    add-webpack-dev-server \
-    add-html \
-    starter \
-    starter-no-config \
-  ; do
-    cd ${root}/modules/${project}
-    npm i
-    npm run build
-  done;
+- export project=starter-no-config
+- export project=starter
+- export project=add-html
+- export project=add-webpack-dev-server
+- export project=add-css-and-styles-loaders
+- export project=using-extract-and-file-loaders
+- export project=using-extract-text-webpack-plugin
+- cd ${root}/modules/${project}
 
-#- cd $root
-#- cp -Rf ./.dockerignore.frontend ./.dockerignore
-#- docker build --rm --force-rm --no-cache -f Dockerfile.frontend -t daggerok/webpack-examples:frontend .
-#- docker run -d --rm -p 80:80 -e "PORT=80" --name run-webpack-examples-frontend daggerok/webpack-examples:frontend
-#- sleep 1
-#- http http://127.0.0.1/
-#- docker stop run-webpack-examples-frontend
+- npm i
+- npm run build
 
 env:
   global:

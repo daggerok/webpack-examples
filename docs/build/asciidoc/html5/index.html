@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-17 16:09:57 EEST</span>
+<span id="revdate">2018-06-17 16:53:22 EEST</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -552,6 +552,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#basic-config">2.2. basic config</a></li>
 <li><a href="#add-html-plugin">2.3. add HTML plugin</a></li>
 <li><a href="#add-webpack-dev-server">2.4. add webpack-dev-server</a></li>
+<li><a href="#add-css-loader-and-style-loader">2.5. add css-loader and style-loader</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -614,7 +615,7 @@ npm i -g webpack webpack-cli
 #npm i -DE webpack webpack-cli
 
 webpack --mode=development
-webpack --mode=production</code></pre>
+webpack --mode production</code></pre>
 </div>
 </div>
 </div>
@@ -641,7 +642,7 @@ module.exports = {
 <div class="sect2">
 <h3 id="add-html-plugin"><a class="anchor" href="#add-html-plugin"></a>2.3. add HTML plugin</h3>
 <div class="listingblock">
-<div class="title">install</div>
+<div class="title">install html-webpack-plugin</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="javascript">npm i -DE html-webpack-plugin</code></pre>
 </div>
@@ -668,13 +669,12 @@ module.exports = {
 <div class="listingblock">
 <div class="title">update webpack condig</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="javascript">const { resolve } = require(<span class="string"><span class="delimiter">'</span><span class="content">path</span><span class="delimiter">'</span></span>);
-const dist = resolve(__dirname, <span class="string"><span class="delimiter">'</span><span class="content">../dist</span><span class="delimiter">'</span></span>);
+<pre class="CodeRay highlight"><code data-lang="javascript">const { resolve, join } = require(<span class="string"><span class="delimiter">'</span><span class="content">path</span><span class="delimiter">'</span></span>);
 
 module.exports = {
   <span class="comment">// ...</span>
   <span class="key">devServer</span>: {
-    <span class="key">contentBase</span>: dist,
+    <span class="key">contentBase</span>: join(__dirname, <span class="string"><span class="delimiter">'</span><span class="content">../dist</span><span class="delimiter">'</span></span>),
   },
 };</code></pre>
 </div>
@@ -682,7 +682,47 @@ module.exports = {
 <div class="listingblock">
 <div class="title">install and run webpack-dev-server</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="javascript">npm i -DE webpack-dev-server</code></pre>
+<pre class="CodeRay highlight"><code data-lang="javascript">npm i -DE webpack-dev-server
+webpack-dev-server --config config/webpack.dev.js</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-css-loader-and-style-loader"><a class="anchor" href="#add-css-loader-and-style-loader"></a>2.5. add css-loader and style-loader</h3>
+<div class="listingblock">
+<div class="title">add some css styles</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="css"><span class="comment">/*tag::content[]*/</span>
+<span class="tag">body</span> {
+  <span class="key">padding</span>: <span class="float">0</span>;
+  <span class="key">margin</span>: <span class="float">0</span>;
+}
+<span class="comment">/*end::content[]*/</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">install css-loader and style-loader</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">npm i -DE css-loader style-loader</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">module.exports = {
+  <span class="comment">// ...</span>
+  <span class="key">module</span>: {
+    <span class="key">rules</span>: [
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">css$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: [
+          { <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">style-loader</span><span class="delimiter">'</span></span> },
+          { <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">css-loader</span><span class="delimiter">'</span></span> },
+        ],
+      },
+    ],
+  },
+};</code></pre>
 </div>
 </div>
 </div>
@@ -704,7 +744,13 @@ module.exports = {
 <p><a href="https://github.com/daggerok/webpack-examples">GitHub</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://webpack.js.org/plugins/html-webpack-plugin/">HTML webpack plugin</a></p>
+<p>link:[Webpack documentation]</p>
+</div>
+<div class="paragraph">
+<p><a href="https://webpack.js.org/plugins/html-webpack-plugin/">HTML webpack plugin documentation</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://webpack.js.org/configuration/dev-server/#src/components/Sidebar/Sidebar.jsx">HTML webpack-dev-server documentation</a></p>
 </div>
 </div>
 </div>
@@ -712,7 +758,7 @@ module.exports = {
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-17 16:09:57 EEST
+Last updated 2018-06-17 16:53:22 EEST
 </div>
 </div>
 </body>

@@ -37,7 +37,7 @@ npm i -g webpack webpack-cli
 #npm i -DE webpack webpack-cli
 
 webpack --mode=development
-webpack --mode=production
+webpack --mode production
 ----
 
 === basic config
@@ -50,7 +50,7 @@ include::../../modules/starter/config/webpack.dev.js[tags=content]
 
 === add HTML plugin
 
-.install
+.install html-webpack-plugin
 [source,javascript]
 ----
 npm i -DE html-webpack-plugin
@@ -75,6 +75,26 @@ include::../../modules/add-webpack-dev-server/config/webpack.dev.js[tags=content
 ----
 npm i -DE webpack-dev-server
 webpack-dev-server --config config/webpack.dev.js
+----
+
+=== add css-loader and style-loader
+
+.add some css styles
+[source,css]
+----
+include::../../modules/add-css-and-styles-loaders/src/styles.css[]
+----
+
+.install css-loader and style-loader
+[source,javascript]
+----
+npm i -DE css-loader style-loader
+----
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/add-css-and-styles-loaders/config/webpack.dev.js[tags=content]
 ----
 
 == Links

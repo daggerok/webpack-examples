@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-17 16:53:22 EEST</span>
+<span id="revdate">2018-06-17 19:07:56 EEST</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -553,6 +553,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#add-html-plugin">2.3. add HTML plugin</a></li>
 <li><a href="#add-webpack-dev-server">2.4. add webpack-dev-server</a></li>
 <li><a href="#add-css-loader-and-style-loader">2.5. add css-loader and style-loader</a></li>
+<li><a href="#process-html-and-using-html-file-loaders">2.6. process html and using html / file loaders</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -590,6 +591,12 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li>
 <p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/add-dev-server">add webpack-dev-server</a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/add-css-and-styles-loaders">add css-loader and style-loader</a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/using-extract-and-file-loaders">process html and using html / file loaders</a></p>
 </li>
 </ul>
 </div>
@@ -675,6 +682,8 @@ module.exports = {
   <span class="comment">// ...</span>
   <span class="key">devServer</span>: {
     <span class="key">contentBase</span>: join(__dirname, <span class="string"><span class="delimiter">'</span><span class="content">../dist</span><span class="delimiter">'</span></span>),
+    <span class="comment">// show / overlay errors in browser</span>
+    <span class="key">overlay</span>: <span class="predefined-constant">true</span>,
   },
 };</code></pre>
 </div>
@@ -692,13 +701,39 @@ webpack-dev-server --config config/webpack.dev.js</code></pre>
 <div class="listingblock">
 <div class="title">add some css styles</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="css"><span class="comment">/*tag::content[]*/</span>
-<span class="tag">body</span> {
-  <span class="key">padding</span>: <span class="float">0</span>;
+<pre class="CodeRay highlight"><code data-lang="css"><span class="tag">body</span> {
   <span class="key">margin</span>: <span class="float">0</span>;
+  <span class="key">background-color</span>: <span class="color">#444</span>;
 }
-<span class="comment">/*end::content[]*/</span></code></pre>
+
+<span class="comment">/* lets centred content using flex */</span>
+<span class="id">#app</span> {
+  <span class="key">height</span>: <span class="float">100</span><span class="value">vh</span>;
+  <span class="key">display</span>: <span class="value">flex</span>;
+  <span class="key">align-items</span>: <span class="value">center</span>;
+  <span class="key">justify-content</span>: <span class="value">center</span>;
+}
+
+<span class="comment">/* font styling */</span>
+<span class="tag">h1</span> {
+  <span class="key">color</span>: <span class="value">white</span>;
+  <span class="key">font-size</span>: <span class="float">3em</span>;
+  <span class="key">font-family</span>: <span class="value">Helvetica</span>, <span class="value">sans-serif</span>, <span class="string"><span class="delimiter">'</span><span class="content">DejaVu Sans</span><span class="delimiter">'</span></span>, <span class="value">Arial</span>;
+  <span class="key">text-shadow</span>: <span class="float">0</span> <span class="float">0</span> <span class="float">25px</span> <span class="value">white</span>;
+}</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These loaders will apply in reverse order: first, <code>css-loader</code>, next: <code>style-loader</code>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="title">install css-loader and style-loader</div>
@@ -723,6 +758,128 @@ webpack-dev-server --config config/webpack.dev.js</code></pre>
     ],
   },
 };</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="process-html-and-using-html-file-loaders"><a class="anchor" href="#process-html-and-using-html-file-loaders"></a>2.6. process html and using html / file loaders</h3>
+<div class="listingblock">
+<div class="title">prepare <code>./src/index.html</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="html"><span class="doctype">&lt;!doctype html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attribute-name">lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attribute-name">charset</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">utf-8</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;title&gt;</span>Webpack | Examples<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">viewport</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">content</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">width=device-width, initial-scale=1</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">shortcut icon</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">favicon.ico</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">image/x-icon</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">stylesheet</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">styles.css</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">app</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;script</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">main-bundle.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Few thinks are happening here:
+      First, <code>html-loader</code> will do necessary linting of *.html files.
+      Then <code>extract-loader</code> will tell webpack do not include it in result bundle.js file.
+      And finally <code>file-loader</code> will put extracted content in output dir accordingly
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">remove useless plugin and install requires loaders: <code>html-loader</code>, <code>extract-loader</code> and <code>file-loader</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">npm rm -DE html-webpack-plugin
+npm i -DE html-loader extract-loader file-loader</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><span class="comment">// const HtmlWebpackPlugin = require('html-webpack-plugin');</span>
+
+module.exports = {
+  <span class="comment">// ...</span>
+  <span class="comment">/*
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      favicon: './src/favicon.ico',
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+        ],
+      },
+    ],
+  },
+  */</span>
+  <span class="key">module</span>: {
+    <span class="key">rules</span>: [
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">css$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: [
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">file-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: {
+              <span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">[name].[ext]</span><span class="delimiter">'</span></span>,
+            },
+          },
+          { <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">extract-loader</span><span class="delimiter">'</span></span> },
+          { <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">css-loader</span><span class="delimiter">'</span></span> },
+        ],
+      },
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">html$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: [
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">file-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: {
+              <span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">[name].[ext]</span><span class="delimiter">'</span></span>,
+            },
+          },
+          { <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">extract-loader</span><span class="delimiter">'</span></span> },
+          { <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">html-loader</span><span class="delimiter">'</span></span> },
+        ],
+      },
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">(ico)$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: [
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">file-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: {
+              <span class="key">name</span>: <span class="string"><span class="delimiter">'</span><span class="content">[name].[ext]</span><span class="delimiter">'</span></span>,
+            },
+          },
+        ],
+      },
+    ],
+  },
+};</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">finally combine all together in <code>./src/index.js</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">require(<span class="string"><span class="delimiter">'</span><span class="content">./index.html</span><span class="delimiter">'</span></span>);
+require(<span class="string"><span class="delimiter">'</span><span class="content">./styles.css</span><span class="delimiter">'</span></span>);
+require(<span class="string"><span class="delimiter">'</span><span class="content">./favicon.ico</span><span class="delimiter">'</span></span>);</code></pre>
 </div>
 </div>
 </div>
@@ -758,7 +915,7 @@ webpack-dev-server --config config/webpack.dev.js</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-17 16:53:22 EEST
+Last updated 2018-06-17 19:07:56 EEST
 </div>
 </div>
 </body>

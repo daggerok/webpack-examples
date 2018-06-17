@@ -99,6 +99,38 @@ npm i -DE css-loader style-loader
 include::../../modules/add-css-and-styles-loaders/config/webpack.dev.js[tags=content]
 ----
 
+=== process html and using html / file loaders
+
+.prepare `./src/index.html`
+[source,html]
+----
+include::../../modules/using-extract-and-file-loaders/src/index.html[]
+----
+
+NOTE: Few thinks are happening here:
+      First, `html-loader` will do necessary linting of *.html files.
+      Then `extract-loader` will tell webpack do not include it in result bundle.js file.
+      And finally `file-loader` will put extracted content in output dir accordingly
+
+.remove useless plugin and install requires loaders: `html-loader`, `extract-loader` and `file-loader`
+[source,javascript]
+----
+npm rm -DE html-webpack-plugin
+npm i -DE html-loader extract-loader file-loader
+----
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/using-extract-and-file-loaders/config/webpack.dev.js[tags=content]
+----
+
+.finally combine all together in `./src/index.js`
+[source,javascript]
+----
+include::../../modules/using-extract-and-file-loaders/src/index.js[tags=content]
+----
+
 == Links
 
 ifdef::backend-html5[link:./index.pdf[Documentation in PFD format]]
@@ -114,3 +146,5 @@ link:[Webpack documentation]
 link:https://webpack.js.org/plugins/html-webpack-plugin/[HTML webpack plugin documentation]
 
 link:https://webpack.js.org/configuration/dev-server/#src/components/Sidebar/Sidebar.jsx[HTML webpack-dev-server documentation]
+
+link:https://github.com/peerigon/extract-loader[extract-loader]

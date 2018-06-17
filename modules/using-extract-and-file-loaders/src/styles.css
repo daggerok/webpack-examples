@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  background-color: #444;
+}
+
+/* lets centred content using flex */
+#app {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* font styling */
+h1 {
+  color: white;
+  font-size: 3em;
+  font-family: Helvetica, sans-serif, 'DejaVu Sans', Arial;
+  text-shadow: 0 0 25px white;
+}

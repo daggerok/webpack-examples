@@ -41,7 +41,6 @@ module.exports = {
   plugins: [
     cssContent,
     lessContent,
-    // ...
     // end::content[]
     new HtmlWebpackPlugin({
       template: './src/index.html',

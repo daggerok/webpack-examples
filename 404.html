@@ -540,13 +540,18 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-17 04:31:10 UTC</span>
+<span id="revdate">2018-06-17 04:50:19 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#quickstart">2. Quickstart</a></li>
+<li><a href="#quickstart">2. Quickstart</a>
+<ul class="sectlevel2">
+<li><a href="#no-config">2.1. no config</a></li>
+<li><a href="#basic-config">2.2. basic config</a></li>
+</ul>
+</li>
 <li><a href="#links">3. Links</a></li>
 </ul>
 </div>
@@ -572,7 +577,10 @@ table.CodeRay td.code>pre{padding:0}
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/daggerok/webpack-examples/tree/master/starter">starter</a></p>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/starter-no-config">starter without config file</a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/starter">basic starter</a></p>
 </li>
 </ul>
 </div>
@@ -581,6 +589,8 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="quickstart"><a class="anchor" href="#quickstart"></a>2. Quickstart</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="no-config"><a class="anchor" href="#no-config"></a>2.1. no config</h3>
 <div class="listingblock">
 <div class="title">using webpack without <code>webpack.config.js</code> file</div>
 <div class="content">
@@ -597,6 +607,27 @@ npm i -g webpack webpack-cli
 
 webpack --mode=development
 webpack --mode=production</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="basic-config"><a class="anchor" href="#basic-config"></a>2.2. basic config</h3>
+<div class="listingblock">
+<div class="title">using webpack with basic config file: <code>config/webpack.dev.js</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const { resolve } = require(<span class="string"><span class="delimiter">'</span><span class="content">path</span><span class="delimiter">'</span></span>);
+
+module.exports = {
+  <span class="key">entry</span>: {
+    <span class="key">main</span>: <span class="string"><span class="delimiter">'</span><span class="content">./src/index.js</span><span class="delimiter">'</span></span>
+  },
+  <span class="key">mode</span>: <span class="string"><span class="delimiter">'</span><span class="content">development</span><span class="delimiter">'</span></span>,
+  <span class="key">output</span>: {
+    <span class="key">filename</span>: <span class="string"><span class="delimiter">'</span><span class="content">[name]-bundle.js</span><span class="delimiter">'</span></span>,
+    <span class="key">path</span>: resolve(__dirname, <span class="string"><span class="delimiter">'</span><span class="content">../dist</span><span class="delimiter">'</span></span>),
+  },
+};</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -622,7 +653,7 @@ webpack --mode=production</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-17 04:31:10 UTC
+Last updated 2018-06-17 04:50:19 UTC
 </div>
 </div>
 </body>

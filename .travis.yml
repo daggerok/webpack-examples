@@ -28,6 +28,7 @@ script:
 - export project=using-extract-and-file-loaders
 - export project=using-extract-text-webpack-plugin
 - export project=using-mini-css-extract-plugin
+- export project=using-optimize-css-assets-webpack-plugin
 - cd ${root}/modules/${project}
 
 - npm i

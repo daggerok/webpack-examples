@@ -12,8 +12,23 @@ plugins {
 allprojects {
   apply plugin: 'base'
   project.version = '0.0.1'
-  defaultTasks 'clean', 'build'
-  clean { ['public'].each { delete it } }
+  defaultTasks 'build'
+  clean {
+    [
+      "$rootDir/public",
+      "$rootDir/modules/starter-no-config/node_modules",
+      "$rootDir/modules/starter/node_modules",
+      "$rootDir/modules/add-webpack-dev-server/node_modules",
+      "$rootDir/modules/add-html/node_modules",
+      "$rootDir/modules/add-css-and-styles-loaders/node_modules",
+      "$rootDir/modules/using-extract-and-file-loaders/node_modules",
+      "$rootDir/modules/using-extract-text-webpack-plugin/node_modules",
+      "$rootDir/modules/using-mini-css-extract-plugin/node_modules",
+      "$rootDir/modules/using-optimize-css-assets-webpack-plugin/node_modules",
+    ].each {
+      delete it
+    }
+  }
 }
 
 wrapper {

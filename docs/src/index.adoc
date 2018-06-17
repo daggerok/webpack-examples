@@ -181,6 +181,22 @@ include::../../modules/using-mini-css-extract-plugin/webpack.config.js[tags=cont
 }
 ----
 
+=== using optimize-css-assets-webpack-plugin
+
+NOTE: THis plugin solves extract-text-webpack-plugin CSS duplication problem
+
+.install
+[source,bash]
+----
+npm i -DE optimize-css-assets-webpack-plugin
+----
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/using-optimize-css-assets-webpack-plugin/webpack.config.js[tags=content]
+----
+
 == Links
 
 ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]
@@ -192,3 +208,4 @@ ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]
 - link:https://webpack.js.org/configuration/dev-server/#src/components/Sidebar/Sidebar.jsx[HTML webpack-dev-server documentation]
 - link:https://github.com/peerigon/extract-loader[extract-loader]
 - link:https://webpack.js.org/plugins/extract-text-webpack-plugin/#src/components/Sidebar/Sidebar.jsx[extract-text-webpack-plugin]
+- link:https://github.com/NMFR/optimize-css-assets-webpack-plugin[optimize-css-assets-webpack-plugin]

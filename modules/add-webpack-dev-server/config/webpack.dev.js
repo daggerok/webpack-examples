@@ -22,6 +22,8 @@ module.exports = {
   // ...
   devServer: {
     contentBase: join(__dirname, '../dist'),
+    // show / overlay errors in browser
+    overlay: true,
   },
 };
 //end::content[]

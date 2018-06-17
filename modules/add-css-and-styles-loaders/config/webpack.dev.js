@@ -21,6 +21,7 @@ module.exports = {
   ],
   devServer: {
     contentBase: join(__dirname, '../dist'),
+    overlay: true,
   },
   // tag::content[]
   module: {

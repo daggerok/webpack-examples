@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-17 18:34:31 UTC</span>
+<span id="revdate">2018-06-17 22:39:12 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -555,6 +555,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#add-css-loader-and-style-loader">2.5. add css-loader and style-loader</a></li>
 <li><a href="#process-html-and-using-html-file-loaders">2.6. process html and using html / file loaders</a></li>
 <li><a href="#using-extract-text-webpack-plugin">2.7. using extract-text-webpack-plugin</a></li>
+<li><a href="#using-mini-css-extract-plugin">2.8. using mini-css-extract-plugin</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -941,6 +942,82 @@ module.exports = {
 };</code></pre>
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+There are better option available for using instead of extract text plugin:
+     <code>mini-css-extract-plugin</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-mini-css-extract-plugin"><a class="anchor" href="#using-mini-css-extract-plugin"></a>2.8. using mini-css-extract-plugin</h3>
+<div class="listingblock">
+<div class="title">install</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">npm rm extract-text-webpack-plugin
+npm i -DE mini-css-extract-plugin</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const mode = process.env.NODE_ENV || <span class="string"><span class="delimiter">'</span><span class="content">production</span><span class="delimiter">'</span></span>;
+const isProduction = mode === <span class="string"><span class="delimiter">'</span><span class="content">production</span><span class="delimiter">'</span></span>;
+const MiniCssExtractPlugin = require(<span class="string"><span class="delimiter">'</span><span class="content">mini-css-extract-plugin</span><span class="delimiter">'</span></span>);
+
+module.exports = {
+  mode,
+  <span class="comment">// ...</span>
+  <span class="key">module</span>: {
+    <span class="key">rules</span>: [
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">css$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: [
+          isProduction ? MiniCssExtractPlugin.loader : <span class="string"><span class="delimiter">'</span><span class="content">style-loader</span><span class="delimiter">'</span></span>,
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">css-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: {
+              <span class="key">importLoaders</span>: <span class="integer">1</span>,
+            },
+          },
+          <span class="comment">// 'postcss-loader',</span>
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">postcss-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: {
+              <span class="key">ident</span>: <span class="string"><span class="delimiter">'</span><span class="content">postcss</span><span class="delimiter">'</span></span>,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  <span class="key">plugins</span>: [
+    <span class="keyword">new</span> MiniCssExtractPlugin({
+      <span class="key">filename</span>: <span class="string"><span class="delimiter">'</span><span class="content">[name]-[hash:8].css</span><span class="delimiter">'</span></span>,
+    }),
+  ],
+};</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update package.json</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">scripts</span><span class="delimiter">&quot;</span></span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">dev</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">cross-env NODE_ENV=development webpack</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">build</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">cross-env NODE_ENV=production webpack</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">start</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">cross-env NODE_ENV=development webpack-dev-server --open</span><span class="delimiter">&quot;</span></span>
+  }
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -984,7 +1061,7 @@ module.exports = {
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-17 18:34:31 UTC
+Last updated 2018-06-17 22:39:12 UTC
 </div>
 </div>
 </body>

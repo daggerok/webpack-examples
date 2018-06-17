@@ -47,5 +47,7 @@ module.exports = {
       template: './src/index.html',
       favicon: './src/favicon.ico',
     }),
+    // tag::content[]
   ],
 };
+// end::content[]

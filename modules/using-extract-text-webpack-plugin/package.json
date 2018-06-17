@@ -5,7 +5,8 @@
     "prebuild": "npm i",
     "postprebuild": "rimraf ./dist",
     "build": "webpack --config ./config/webpack.dev.js",
-    "start": "webpack-dev-server --config ./config/webpack.dev.js"
+    "start": "webpack-dev-server --config ./config/webpack.dev.js",
+    "dist": "webpack --config ./config/webpack.dev.js --mode production"
   },
   "private": true,
   "dependencies": {},

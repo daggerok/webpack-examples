@@ -2,8 +2,8 @@ const { resolve, join } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // tag::content[]
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const cssContent = new ExtractTextPlugin('[name].css');
-const lessContent = new ExtractTextPlugin('[name].less.css');
+const cssContent = new ExtractTextPlugin('[name]-[hash:8].css');
+const lessContent = new ExtractTextPlugin('[name].less-[hash:8].css');
 
 module.exports = {
   // ...
@@ -13,7 +13,7 @@ module.exports = {
   },
   mode: 'development',
   output: {
-    filename: '[name]-bundle.js',
+    filename: '[name]-[hash:8].js',
     path: resolve(__dirname, '../dist'),
   },
   devServer: {

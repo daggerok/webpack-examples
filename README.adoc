@@ -5,5 +5,6 @@ Read link:https://daggerok.github.io/webpack-examples[reference documentation]
 
 webpack 4 examples:
 
-- link:https://github.com/daggerok/webpack-examples/tree/master/starter[starter]
+- link:https://github.com/daggerok/webpack-examples/tree/master/starter-no-config[starter without config file]
+- link:https://github.com/daggerok/webpack-examples/tree/master/starter[basic starter]
 //end::content[]

@@ -2,12 +2,14 @@
   "name": "webpack-examples",
   "version": "0.0.1",
   "scripts": {
-    "start": "echo start",
-    "build": "echo build"
+    "prebuild": "npm i",
+    "build": "webpack --config ./config/webpack.dev.js"
   },
   "private": true,
   "dependencies": {},
   "devDependencies": {
+    "@types/node": "10.3.3",
+    "@types/webpack": "4.4.0",
     "cross-env": "5.2.0",
     "mkdirp": "0.5.1",
     "npm-run-all": "4.1.3",

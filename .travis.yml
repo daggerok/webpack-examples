@@ -26,6 +26,8 @@ script:
 - export root=$(pwd)
 - |
   for project in \
+    add-css-and-styles-loaders \
+    add-webpack-dev-server \
     add-html \
     starter \
     starter-no-config \

@@ -32,6 +32,7 @@ script:
 - export project=using-webpack-config-as-a-function
 - export project=webpack-babel-setup
 - export project=webpack-compression
+- export project=webpack-react-basic-setup
 - cd ${root}/modules/${project}
 
 - npm i

@@ -220,7 +220,7 @@ npm i -ED babel-core babel-loader babel-preset-env babel-preset-stage-0 babel-mi
 ----
 
 .prepare .babelrc
-[source,javascript]
+[source,json]
 ----
 include::../../modules/webpack-babel-setup/.babelrc[]
 ----
@@ -238,6 +238,33 @@ include::../../modules/webpack-babel-setup/webpack.config.js[tags=content]
 ----
 npm i -ED compression-webpack-plugin
 npm i -ED brotli-webpack-plugin
+----
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/webpack-compression/webpack.config.js[tags=content]
+----
+
+=== react (basic webpack setup)
+
+.install required packages
+[source,bash]
+----
+npm i -E react react-dom react-router
+npm i -ED babel-preset-react babel-runtime babel-register webpack-hot-middleware
+----
+
+.prepare .babelrc
+[source,json]
+----
+include::../../modules/webpack-react-basic-setup/.babelrc[]
+----
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/webpack-react-basic-setup/webpack.config.js[tags=content]
 ----
 
 == Links

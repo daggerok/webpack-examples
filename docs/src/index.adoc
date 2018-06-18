@@ -211,6 +211,26 @@ npm rm cross-env
 include::../../modules/using-webpack-config-as-a-function/webpack.config.js[tags=content]
 ----
 
+=== babel setup (compare babel minify with uglifyjs)
+
+.install required packages
+[source,bash]
+----
+npm i -ED babel-core babel-loader babel-preset-env babel-preset-stage-0 babel-minify-webpack-plugin babel-plugin-transform-runtime babel-polyfill uglifyjs-webpack-plugin
+----
+
+.prepare .babelrc
+[source,javascript]
+----
+include::../../modules/webpack-babel-setup/.babelrc[]
+----
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/webpack-babel-setup/webpack.config.js[tags=content]
+----
+
 == Links
 
 ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]

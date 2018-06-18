@@ -5,23 +5,25 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
+const BabelMinifyPlugin = require('babel-minify-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const safety = env => env || process.env || {};
 const mode = env => safety(env).NODE_ENV || 'production';
 const isProduction = env => 'production' === mode(env);
 
 // tag::content[]
-const BabelMinifyPlugin = require('babel-minify-webpack-plugin');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const BrotliPlugin = require('brotli-webpack-plugin');
 
 module.exports = env => ({
+  // ...
+  // end::content[]
   entry: {
     main: [
-      // 'babel-polyfill',
       './src/index.js',
     ],
   },
-  // end::content[]
   mode: mode(env),
   output: {
     filename: '[name]-[contenthash].js',
@@ -40,7 +42,6 @@ module.exports = env => ({
         ],
         include: resolve(__dirname, 'src'),
       },
-      // tag::content[]
       {
         test: /\.css$/i,
         use: [
@@ -58,7 +59,6 @@ module.exports = env => ({
           },
         ],
       },
-      // end::content[]
       {
         test: /\.less$/i,
         use: [
@@ -116,14 +116,13 @@ module.exports = env => ({
           },
         ],
       },
-      // tag::content[]
     ],
   },
+  // tag::content[]
   plugins: [
-    // you decide with one is better:
+    // end::content[]
     isProduction(env) ? new BabelMinifyPlugin() : undefined,
     // isProduction(env) ? new UglifyJsPlugin() : undefined,
-    // end::content[]
     isProduction(env) ? new OptimizeCssPlugin() : undefined,
     new MiniCssExtractPlugin({
       filename: '[name]-[contenthash].css',
@@ -147,6 +146,8 @@ module.exports = env => ({
       },
     }),
     // tag::content[]
+    isProduction(env) ? new CompressionPlugin({ algorithm: 'gzip' }) : undefined,
+    isProduction(env) ? new BrotliPlugin() : undefined,
   ].filter(p => !!p),
 });
 // end::content[]

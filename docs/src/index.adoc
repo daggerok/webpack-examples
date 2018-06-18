@@ -231,6 +231,15 @@ include::../../modules/webpack-babel-setup/.babelrc[]
 include::../../modules/webpack-babel-setup/webpack.config.js[tags=content]
 ----
 
+=== compression files
+
+.install required packages
+[source,bash]
+----
+npm i -ED compression-webpack-plugin
+npm i -ED brotli-webpack-plugin
+----
+
 == Links
 
 ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]

@@ -25,6 +25,9 @@ allprojects {
       "$rootDir/modules/using-extract-text-webpack-plugin/node_modules",
       "$rootDir/modules/using-mini-css-extract-plugin/node_modules",
       "$rootDir/modules/using-optimize-css-assets-webpack-plugin/node_modules",
+      "$rootDir/modules/using-webpack-config-as-a-function/node_modules",
+      "$rootDir/modules/webpack-babel-setup/node_modules",
+      "$rootDir/modules/webpack-compression/node_modules",
     ].each {
       delete it
     }

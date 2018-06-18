@@ -16,4 +16,5 @@ webpack 4 examples:
 - link:https://github.com/daggerok/webpack-examples/tree/master/modules/using-optimize-css-assets-webpack-plugin[using `optimize-css-assets-webpack-plugin`]
 - link:https://github.com/daggerok/webpack-examples/tree/master/modules/using-webpack-config-as-a-function[using webpack config as a function]
 - link:https://github.com/daggerok/webpack-examples/tree/master/modules/webpack-babel-setup[babel webpack config]
+- link:https://github.com/daggerok/webpack-examples/tree/master/modules/webpack-compression[compression webpack config]
 //end::content[]

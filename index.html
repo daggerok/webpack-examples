@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-18 01:23:07 UTC</span>
+<span id="revdate">2018-06-18 01:45:47 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -559,6 +559,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#using-optimize-css-assets-webpack-plugin">2.9. using optimize-css-assets-webpack-plugin</a></li>
 <li><a href="#using-webpack-config-as-a-function">2.10. using webpack config as a function</a></li>
 <li><a href="#babel-setup-compare-babel-minify-with-uglifyjs">2.11. babel setup (compare babel minify with uglifyjs)</a></li>
+<li><a href="#compression-files">2.12. compression files</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -617,6 +618,9 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li>
 <p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/webpack-babel-setup">babel webpack config</a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/webpack-compression">compression webpack config</a></p>
 </li>
 </ul>
 </div>
@@ -1193,13 +1197,18 @@ module.exports = env =&gt; ({
     <span class="comment">// you decide with one is better:</span>
     isProduction(env) ? <span class="keyword">new</span> BabelMinifyPlugin() : <span class="predefined-constant">undefined</span>,
     <span class="comment">// isProduction(env) ? new UglifyJsPlugin() : undefined,</span>
-    <span class="keyword">new</span> webpack.DefinePlugin({
-      <span class="key"><span class="delimiter">'</span><span class="content">process.env</span><span class="delimiter">'</span></span>: {
-        <span class="key">NODE_ENV</span>: JSON.stringify(mode(env)),
-      },
-    })
   ].filter(p =&gt; !!p),
 });</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="compression-files"><a class="anchor" href="#compression-files"></a>2.12. compression files</h3>
+<div class="listingblock">
+<div class="title">install required packages</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">npm i -ED compression-webpack-plugin
+npm i -ED brotli-webpack-plugin</code></pre>
 </div>
 </div>
 </div>
@@ -1248,7 +1257,7 @@ module.exports = env =&gt; ({
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-18 01:23:07 UTC
+Last updated 2018-06-18 01:45:47 UTC
 </div>
 </div>
 </body>

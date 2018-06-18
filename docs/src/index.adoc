@@ -267,6 +267,14 @@ include::../../modules/webpack-react-basic-setup/.babelrc[]
 include::../../modules/webpack-react-basic-setup/webpack.config.js[tags=content]
 ----
 
+=== webpack optimization and code (chunks) splitting
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/webpack-optimization-splitting/webpack.config.js[tags=content]
+----
+
 == Links
 
 ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]

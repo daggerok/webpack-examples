@@ -33,6 +33,7 @@ script:
 - export project=webpack-babel-setup
 - export project=webpack-compression
 - export project=webpack-react-basic-setup
+- export project=webpack-optimization-splitting
 - cd ${root}/modules/${project}
 
 - npm i

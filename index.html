@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-17 23:38:42 UTC</span>
+<span id="revdate">2018-06-18 01:20:26 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -557,6 +557,8 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#using-extract-text-webpack-plugin">2.7. using extract-text-webpack-plugin</a></li>
 <li><a href="#using-mini-css-extract-plugin">2.8. using mini-css-extract-plugin</a></li>
 <li><a href="#using-optimize-css-assets-webpack-plugin">2.9. using optimize-css-assets-webpack-plugin</a></li>
+<li><a href="#using-webpack-config-as-a-function">2.10. using webpack config as a function</a></li>
+<li><a href="#babel-setup-compare-babel-minify-with-uglifyjs">2.11. babel setup (compare babel minify with uglifyjs)</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -609,6 +611,12 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li>
 <p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/using-optimize-css-assets-webpack-plugin">using <code>optimize-css-assets-webpack-plugin</code></a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/using-webpack-config-as-a-function">using webpack config as a function</a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/webpack-babel-setup">babel webpack config</a></p>
 </li>
 </ul>
 </div>
@@ -1064,6 +1072,137 @@ module.exports = {
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="using-webpack-config-as-a-function"><a class="anchor" href="#using-webpack-config-as-a-function"></a>2.10. using webpack config as a function</h3>
+<div class="listingblock">
+<div class="title">remove useless packages</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">npm rm cross-env</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const safety = env =&gt; env || process.env || {};
+const mode = env =&gt; safety(env).NODE_ENV || <span class="string"><span class="delimiter">'</span><span class="content">production</span><span class="delimiter">'</span></span>;
+const isProduction = env =&gt; <span class="string"><span class="delimiter">'</span><span class="content">production</span><span class="delimiter">'</span></span> === mode(env);
+
+module.exports = env =&gt; ({
+  <span class="key">mode</span>: mode(env),
+  <span class="key">module</span>: {
+    <span class="key">rules</span>: [
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">css$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: [
+          isProduction(env) ? MiniCssExtractPlugin.loader : <span class="string"><span class="delimiter">'</span><span class="content">style-loader</span><span class="delimiter">'</span></span>,
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">css-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: { <span class="key">importLoaders</span>: <span class="integer">1</span> },
+          },
+          <span class="string"><span class="delimiter">'</span><span class="content">postcss-loader</span><span class="delimiter">'</span></span>,
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">postcss-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: {
+              <span class="key">ident</span>: <span class="string"><span class="delimiter">'</span><span class="content">postcss</span><span class="delimiter">'</span></span>,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  <span class="key">plugins</span>: [
+    isProduction(env) ? <span class="keyword">new</span> OptimizeCssPlugin() : <span class="predefined-constant">undefined</span>,
+    <span class="keyword">new</span> webpack.DefinePlugin({
+      <span class="key"><span class="delimiter">'</span><span class="content">process.env</span><span class="delimiter">'</span></span>: {
+        <span class="key">NODE_ENV</span>: JSON.stringify(mode(env)),
+      },
+    })
+  ].filter(p =&gt; !!p),
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="babel-setup-compare-babel-minify-with-uglifyjs"><a class="anchor" href="#babel-setup-compare-babel-minify-with-uglifyjs"></a>2.11. babel setup (compare babel minify with uglifyjs)</h3>
+<div class="listingblock">
+<div class="title">install required packages</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">npm i -ED babel-core babel-loader babel-preset-env babel-preset-stage-0 babel-minify-webpack-plugin babel-plugin-transform-runtime babel-polyfill uglifyjs-webpack-plugin</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">prepare .babelrc</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">presets</span><span class="delimiter">&quot;</span></span>: [
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">stage-0</span><span class="delimiter">&quot;</span></span>,
+    [
+      <span class="string"><span class="delimiter">&quot;</span><span class="content">env</span><span class="delimiter">&quot;</span></span>,
+      {
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">debug</span><span class="delimiter">&quot;</span></span>: <span class="predefined-constant">false</span>,
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">targets</span><span class="delimiter">&quot;</span></span>: {
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">browsers</span><span class="delimiter">&quot;</span></span>: [
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">last 2 versions</span><span class="delimiter">&quot;</span></span>,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">safari &gt;= 7</span><span class="delimiter">&quot;</span></span>,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">chrome &gt;= 52</span><span class="delimiter">&quot;</span></span>,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">firefox &gt;= 48</span><span class="delimiter">&quot;</span></span>
+          ]
+        }
+      }
+    ]
+  ],
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">plugins</span><span class="delimiter">&quot;</span></span>: [
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">transform-runtime</span><span class="delimiter">&quot;</span></span>
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const BabelMinifyPlugin = require(<span class="string"><span class="delimiter">'</span><span class="content">babel-minify-webpack-plugin</span><span class="delimiter">'</span></span>);
+<span class="comment">// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');</span>
+
+module.exports = env =&gt; ({
+  <span class="key">entry</span>: {
+    <span class="key">main</span>: [
+      <span class="comment">// 'babel-polyfill',</span>
+      <span class="string"><span class="delimiter">'</span><span class="content">./src/index.js</span><span class="delimiter">'</span></span>,
+    ],
+  },
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">css$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: [
+          isProduction(env) ? MiniCssExtractPlugin.loader : <span class="string"><span class="delimiter">'</span><span class="content">style-loader</span><span class="delimiter">'</span></span>,
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">css-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: { <span class="key">importLoaders</span>: <span class="integer">1</span> },
+          },
+          <span class="string"><span class="delimiter">'</span><span class="content">postcss-loader</span><span class="delimiter">'</span></span>,
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">postcss-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: {
+              <span class="key">ident</span>: <span class="string"><span class="delimiter">'</span><span class="content">postcss</span><span class="delimiter">'</span></span>,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  <span class="key">plugins</span>: [
+    <span class="comment">// you decide with one is better:</span>
+    isProduction(env) ? <span class="keyword">new</span> BabelMinifyPlugin() : <span class="predefined-constant">undefined</span>,
+    <span class="comment">// isProduction(env) ? new UglifyJsPlugin() : undefined,</span>
+    <span class="keyword">new</span> webpack.DefinePlugin({
+      <span class="key"><span class="delimiter">'</span><span class="content">process.env</span><span class="delimiter">'</span></span>: {
+        <span class="key">NODE_ENV</span>: JSON.stringify(mode(env)),
+      },
+    })
+  ].filter(p =&gt; !!p),
+});</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1109,7 +1248,7 @@ module.exports = {
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-17 23:38:42 UTC
+Last updated 2018-06-18 01:20:26 UTC
 </div>
 </div>
 </body>

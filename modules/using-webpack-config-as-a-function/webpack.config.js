@@ -7,11 +7,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 
 // tag::content[]
-const mode = process.env.NODE_ENV || 'production';
-const isProduction = 'production' === mode;
+const safety = env => env || process.env || {};
+const mode = env => safety(env).NODE_ENV || 'production';
+const isProduction = env => 'production' === mode(env);
 
 module.exports = env => ({
-  mode: mode,
+  mode: mode(env),
   // end::content[]
   entry: {
     main: './src/index.js'
@@ -24,12 +25,13 @@ module.exports = env => ({
     contentBase: dist,
     overlay: true,
   },
+  // tag::content[]
   module: {
     rules: [
       {
         test: /\.css$/i,
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          isProduction(env) ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: { importLoaders: 1 },
@@ -43,10 +45,11 @@ module.exports = env => ({
           },
         ],
       },
+      // end::content[]
       {
         test: /\.less$/i,
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          isProduction(env) ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: { importLoaders: 2 },
@@ -63,7 +66,7 @@ module.exports = env => ({
       {
         test: /\.s(a|c)ss$/i,
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          isProduction(env) ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: { importLoaders: 2 },
@@ -80,7 +83,7 @@ module.exports = env => ({
       {
         test: /\.styl$/i,
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          isProduction(env) ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: { importLoaders: 2 },
@@ -100,11 +103,11 @@ module.exports = env => ({
           },
         ],
       },
+      // tag::content[]
     ],
   },
-  // tag::content[]
   plugins: [
-    isProduction ? new OptimizeCssPlugin() : undefined,
+    isProduction(env) ? new OptimizeCssPlugin() : undefined,
     // end::content[]
     new MiniCssExtractPlugin({
       filename: '[name]-[contenthash].css',
@@ -112,7 +115,7 @@ module.exports = env => ({
     new HtmlWebpackPlugin({
       template: './src/index.html',
       favicon: './src/favicon.ico',
-      minify: isProduction ? {
+      minify: isProduction(env) ? {
         minifyJS: true,
         minifyCSS: true,
         quoteCharacter: '"',
@@ -125,7 +128,7 @@ module.exports = env => ({
     // tag::content[]
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(mode),
+        NODE_ENV: JSON.stringify(mode(env)),
       },
     })
   ].filter(p => !!p),

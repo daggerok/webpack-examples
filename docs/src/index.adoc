@@ -199,6 +199,12 @@ include::../../modules/using-optimize-css-assets-webpack-plugin/webpack.config.j
 
 === using webpack config as a function
 
+.remove useless packages
+[source,bash]
+----
+npm rm cross-env
+----
+
 .update webpack condig
 [source,javascript]
 ----

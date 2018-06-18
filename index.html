@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-18 01:47:21 UTC</span>
+<span id="revdate">2018-06-18 02:56:50 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -560,6 +560,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#using-webpack-config-as-a-function">2.10. using webpack config as a function</a></li>
 <li><a href="#babel-setup-compare-babel-minify-with-uglifyjs">2.11. babel setup (compare babel minify with uglifyjs)</a></li>
 <li><a href="#compression-files">2.12. compression files</a></li>
+<li><a href="#react-basic-webpack-setup">2.13. react (basic webpack setup)</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -621,6 +622,9 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li>
 <p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/webpack-compression">compression webpack config</a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/webpack-react-basic-setup">react basic webpack config</a></p>
 </li>
 </ul>
 </div>
@@ -1137,13 +1141,13 @@ module.exports = env =&gt; ({
 <div class="listingblock">
 <div class="title">prepare .babelrc</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="javascript">{
+<pre class="CodeRay highlight"><code data-lang="json">{
   <span class="key"><span class="delimiter">&quot;</span><span class="content">presets</span><span class="delimiter">&quot;</span></span>: [
     <span class="string"><span class="delimiter">&quot;</span><span class="content">stage-0</span><span class="delimiter">&quot;</span></span>,
     [
       <span class="string"><span class="delimiter">&quot;</span><span class="content">env</span><span class="delimiter">&quot;</span></span>,
       {
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">debug</span><span class="delimiter">&quot;</span></span>: <span class="predefined-constant">false</span>,
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">debug</span><span class="delimiter">&quot;</span></span>: <span class="value">false</span>,
         <span class="key"><span class="delimiter">&quot;</span><span class="content">targets</span><span class="delimiter">&quot;</span></span>: {
           <span class="key"><span class="delimiter">&quot;</span><span class="content">browsers</span><span class="delimiter">&quot;</span></span>: [
             <span class="string"><span class="delimiter">&quot;</span><span class="content">last 2 versions</span><span class="delimiter">&quot;</span></span>,
@@ -1211,6 +1215,89 @@ module.exports = env =&gt; ({
 npm i -ED brotli-webpack-plugin</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const CompressionPlugin = require(<span class="string"><span class="delimiter">'</span><span class="content">compression-webpack-plugin</span><span class="delimiter">'</span></span>);
+const BrotliPlugin = require(<span class="string"><span class="delimiter">'</span><span class="content">brotli-webpack-plugin</span><span class="delimiter">'</span></span>);
+
+module.exports = env =&gt; ({
+  <span class="comment">// ...</span>
+  <span class="key">plugins</span>: [
+    isProduction(env) ? <span class="keyword">new</span> CompressionPlugin({ <span class="key">algorithm</span>: <span class="string"><span class="delimiter">'</span><span class="content">gzip</span><span class="delimiter">'</span></span> }) : <span class="predefined-constant">undefined</span>,
+    isProduction(env) ? <span class="keyword">new</span> BrotliPlugin() : <span class="predefined-constant">undefined</span>,
+  ].filter(p =&gt; !!p),
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="react-basic-webpack-setup"><a class="anchor" href="#react-basic-webpack-setup"></a>2.13. react (basic webpack setup)</h3>
+<div class="listingblock">
+<div class="title">install required packages</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">npm i -E react react-dom react-router
+npm i -ED babel-preset-react babel-runtime babel-register webpack-hot-middleware</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">prepare .babelrc</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">presets</span><span class="delimiter">&quot;</span></span>: [
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">react</span><span class="delimiter">&quot;</span></span>,
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">stage-0</span><span class="delimiter">&quot;</span></span>,
+    [
+      <span class="string"><span class="delimiter">&quot;</span><span class="content">env</span><span class="delimiter">&quot;</span></span>,
+      {
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">debug</span><span class="delimiter">&quot;</span></span>: <span class="value">false</span>,
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">targets</span><span class="delimiter">&quot;</span></span>: {
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">browsers</span><span class="delimiter">&quot;</span></span>: [
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">last 2 versions</span><span class="delimiter">&quot;</span></span>,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">safari &gt;= 7</span><span class="delimiter">&quot;</span></span>,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">chrome &gt;= 52</span><span class="delimiter">&quot;</span></span>,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">firefox &gt;= 48</span><span class="delimiter">&quot;</span></span>
+          ]
+        }
+      }
+    ]
+  ],
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">plugins</span><span class="delimiter">&quot;</span></span>: [
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">transform-runtime</span><span class="delimiter">&quot;</span></span>
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">module.exports = env =&gt; ({
+  <span class="key">module</span>: {
+    <span class="key">rules</span>: [
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">jsx?$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: [
+          <span class="string"><span class="delimiter">'</span><span class="content">babel-loader</span><span class="delimiter">'</span></span>,
+        ],
+        <span class="key">include</span>: resolve(__dirname, <span class="string"><span class="delimiter">'</span><span class="content">src</span><span class="delimiter">'</span></span>),
+      },
+      {
+        <span class="key">test</span>: <span class="regexp"><span class="delimiter">/</span><span class="content">\.</span><span class="content">(ico|jpe?g|png|gif)$</span><span class="delimiter">/</span><span class="modifier">i</span></span>,
+        <span class="key">use</span>: [
+          {
+            <span class="key">loader</span>: <span class="string"><span class="delimiter">'</span><span class="content">file-loader</span><span class="delimiter">'</span></span>,
+            <span class="key">options</span>: {
+              <span class="key">name</span>: isProduction(env) ? <span class="string"><span class="delimiter">'</span><span class="content">[hash].[ext]</span><span class="delimiter">'</span></span> : <span class="string"><span class="delimiter">'</span><span class="content">[path][name].[ext]</span><span class="delimiter">'</span></span>,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  <span class="comment">// ...</span>
+});</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1257,7 +1344,7 @@ npm i -ED brotli-webpack-plugin</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-18 01:47:21 UTC
+Last updated 2018-06-18 02:56:50 UTC
 </div>
 </div>
 </body>

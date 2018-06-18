@@ -7,13 +7,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 const BabelMinifyPlugin = require('babel-minify-webpack-plugin');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const BrotliPlugin = require('brotli-webpack-plugin');
 
 const safety = env => env || process.env || {};
 const mode = env => safety(env).NODE_ENV || 'production';
 const isProduction = env => 'production' === mode(env);
-
-const CompressionPlugin = require('compression-webpack-plugin');
-const BrotliPlugin = require('brotli-webpack-plugin');
 
 // tag::content[]
 module.exports = env => ({
@@ -28,9 +27,12 @@ module.exports = env => ({
     filename: '[name]-[contenthash].js',
     path: dist,
   },
-  devServer: {
+  devServer: isProduction(env) ? {} : {
     contentBase: dist,
     overlay: true,
+    historyApiFallback: {
+      index: 'index.html'
+    }
   },
   // tag::content[]
   module: {

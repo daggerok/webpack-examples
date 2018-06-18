@@ -251,7 +251,7 @@ include::../../modules/webpack-compression/webpack.config.js[tags=content]
 .install required packages
 [source,bash]
 ----
-npm i -E react react-dom react-router
+npm i -E react react-dom react-router react-router-dom
 npm i -ED babel-preset-react babel-runtime babel-register webpack-hot-middleware
 ----
 

@@ -3,7 +3,13 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Link, Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 
-const App = props => <div className='container'>
+const dynamicLoad = () => {
+  import(/* webpackChunkName: 'dynamic-module' */ '../dynamic/module').then(it => {
+    it(Date.now());
+  });
+};
+
+const App = props => <div onClick={dynamicLoad} className='container'>
   <div>
     <img src={require('./cat.png')}/>
   </div>
@@ -26,6 +32,6 @@ const Router = () => <BrowserRouter>
 </BrowserRouter>;
 
 render(
-  <Router/>,
+  <Router />,
   document.getElementById('app')
 );

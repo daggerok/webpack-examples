@@ -30,6 +30,7 @@ module.exports = env => ({
   mode: mode(env),
   output: {
     filename: '[name]-[contenthash].js',
+    chunkFilename: '[name].js',
     path: dist,
   },
   devServer: {

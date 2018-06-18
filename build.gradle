@@ -29,6 +29,7 @@ allprojects {
       "$rootDir/modules/webpack-babel-setup/node_modules",
       "$rootDir/modules/webpack-compression/node_modules",
       "$rootDir/modules/webpack-react-basic-setup/node_modules",
+      "$rootDir/modules/webpack-optimization-splitting/node_modules",
     ].each {
       delete it
     }

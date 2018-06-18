@@ -29,6 +29,7 @@ script:
 - export project=using-extract-text-webpack-plugin
 - export project=using-mini-css-extract-plugin
 - export project=using-optimize-css-assets-webpack-plugin
+- export project=using-using-webpack-config-as-a-function
 - cd ${root}/modules/${project}
 
 - npm i

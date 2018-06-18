@@ -14,4 +14,5 @@ webpack 4 examples:
 - link:https://github.com/daggerok/webpack-examples/tree/master/modules/using-extract-text-webpack-plugin[using `extract-text-webpack-plugin` (deprecated in order to `mini-css-extract-plugin`)]
 - link:https://github.com/daggerok/webpack-examples/tree/master/modules/using-mini-css-extract-plugin[production build: minify everything, extract css...]
 - link:https://github.com/daggerok/webpack-examples/tree/master/modules/using-optimize-css-assets-webpack-plugin[using `optimize-css-assets-webpack-plugin`]
+- link:https://github.com/daggerok/webpack-examples/tree/master/modules/using-webpack-config-as-a-function[using webpack config as a function]
 //end::content[]

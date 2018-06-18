@@ -197,6 +197,14 @@ npm i -DE optimize-css-assets-webpack-plugin
 include::../../modules/using-optimize-css-assets-webpack-plugin/webpack.config.js[tags=content]
 ----
 
+=== using webpack config as a function
+
+.update webpack condig
+[source,javascript]
+----
+include::../../modules/using-webpack-config-as-a-function/webpack.config.js[tags=content]
+----
+
 == Links
 
 ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]

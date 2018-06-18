@@ -540,7 +540,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-18 02:58:53 UTC</span>
+<span id="revdate">2018-06-18 03:55:57 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -561,6 +561,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#babel-setup-compare-babel-minify-with-uglifyjs">2.11. babel setup (compare babel minify with uglifyjs)</a></li>
 <li><a href="#compression-files">2.12. compression files</a></li>
 <li><a href="#react-basic-webpack-setup">2.13. react (basic webpack setup)</a></li>
+<li><a href="#webpack-optimization-and-code-chunks-splitting">2.14. webpack optimization and code (chunks) splitting</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -625,6 +626,9 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li>
 <p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/webpack-react-basic-setup">react basic webpack config</a></p>
+</li>
+<li>
+<p><a href="https://github.com/daggerok/webpack-examples/tree/master/modules/webpack-optimization-splitting">webpack optimization and code splitting</a></p>
 </li>
 </ul>
 </div>
@@ -1299,6 +1303,22 @@ npm i -ED babel-preset-react babel-runtime babel-register webpack-hot-middleware
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="webpack-optimization-and-code-chunks-splitting"><a class="anchor" href="#webpack-optimization-and-code-chunks-splitting"></a>2.14. webpack optimization and code (chunks) splitting</h3>
+<div class="listingblock">
+<div class="title">update webpack condig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">module.exports = env =&gt; ({
+  <span class="key">optimization</span>: {
+    <span class="key">splitChunks</span>: {
+      <span class="key">chunks</span>: <span class="string"><span class="delimiter">'</span><span class="content">all</span><span class="delimiter">'</span></span>,
+    }
+  },
+  <span class="comment">// ...</span>
+});</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1344,7 +1364,7 @@ npm i -ED babel-preset-react babel-runtime babel-register webpack-hot-middleware
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-18 02:58:53 UTC
+Last updated 2018-06-18 03:55:57 UTC
 </div>
 </div>
 </body>
